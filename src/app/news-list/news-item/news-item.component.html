@@ -1,0 +1,19 @@
+<h2>{{content.headline}}</h2>
+<p>{{content.summary}}</p>
+<span class="article-meta">{{content.author}}</span>
+<span class="article-meta">{{content.datePublished}}</span>
+<span
+  class="article-meta negative"
+  *ngIf="content.sentiment < 0.4">
+    Negative 👎
+</span>
+<span
+  class="article-meta neutral"
+  *ngIf="content.sentiment >= 0.4 && content.sentiment < 0.6">
+    Neutral 😐
+</span>
+<span
+  class="article-meta positive"
+  *ngIf="content.sentiment >= 0.6">
+    Positive 👍
+</span>
