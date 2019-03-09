@@ -1,6 +1,15 @@
 <nb-card>
   <nb-card-header>Sentiment Overview</nb-card-header>
   <nb-card-body>
-    Body
+    <div class="gauge-container">
+      <rg-gauge-chart
+      [canvasWidth]="gaugeConfig.canvasWidth"
+      [needleValue]="gaugeConfig.needleValue"
+      [centralLabel]="gaugeConfig.centralLabel"
+      [options]="gaugeConfig.options"
+      [name]="gaugeConfig.name"
+      [bottomLabel]="gaugeConfig.bottomLabel">
+      </rg-gauge-chart>
+    </div>
   </nb-card-body>
 </nb-card>

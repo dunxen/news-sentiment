@@ -1,33 +1,38 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OverviewComponent } from './overview.component';
+import { NewsListComponent } from './news-list.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbCardModule } from '@nebular/theme';
+import { NbThemeModule, NbCardModule, NbListModule } from '@nebular/theme';
 import { RouterTestingModule } from '@angular/router/testing';
-import { GaugeChartModule } from 'angular-gauge-chart';
+import { NewsItemComponent } from './news-item/news-item.component';
+import { NewsItemPlaceholderComponent } from './news-item-placeholder/news-item-placeholder.component';
 
-describe('OverviewComponent', () => {
-  let component: OverviewComponent;
-  let fixture: ComponentFixture<OverviewComponent>;
+describe('NewsListComponent', () => {
+  let component: NewsListComponent;
+  let fixture: ComponentFixture<NewsListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverviewComponent ],
+      declarations: [
+        NewsListComponent,
+        NewsItemComponent,
+        NewsItemPlaceholderComponent
+       ],
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
         NbThemeModule.forRoot({ name: 'default' }),
         NbCardModule,
-        RouterTestingModule.withRoutes([]),
-        GaugeChartModule
+        NbListModule,
+        RouterTestingModule.withRoutes([])
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OverviewComponent);
+    fixture = TestBed.createComponent(NewsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
