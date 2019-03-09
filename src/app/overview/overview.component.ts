@@ -12,7 +12,7 @@ export class OverviewComponent implements OnInit {
     needleValue: 50,
     centralLabel: '',
     name: 'Average Sentiment',
-    bottomLabel: '50%',
+    bottomLabel: '50% (Neutral)',
     options: {
       hasNeedle: true,
       needleColor: 'black',
