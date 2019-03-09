@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule } from '@nebular/theme';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     NbThemeModule.forRoot({ name: 'default' }),
     NbLayoutModule,
+    NbCardModule,
     AppRoutingModule
   ],
   providers: [],
