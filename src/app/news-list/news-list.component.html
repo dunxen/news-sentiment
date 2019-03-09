@@ -1,11 +1,11 @@
 <nb-card>
-  <nb-card-header>News on <span class="query-term">{{query}}</span></nb-card-header>
+  <nb-card-header><h2>News on <span class="query-term">{{query}}</span></h2></nb-card-header>
     <nb-card-body>
       <nb-list
       nbInfiniteList
       [threshold]="500"
       (bottomThreshold)="loadNext()">
-        <nb-list-item *ngFor="let newsItem of news">
+        <nb-list-item *ngFor="let newsItem of news; let i">
           <app-news-item [content]="newsItem"></app-news-item>
         </nb-list-item>
         <nb-list-item *ngFor="let _ of placeholders">
