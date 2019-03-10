@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewsListComponent } from './news-list.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -39,7 +39,19 @@ const mockArticles = [
   },
 ];
 
+class MockPredictor {
+  predict(text: string): number {
+    return 0.5;
+  }
+}
+
 class MockNewsService {
+  predictor = new MockPredictor();
+
+  setup(): Promise<void> {
+    return Promise.resolve();
+  }
+
   getNews(
     query: string,
     pageSize: number,
@@ -67,6 +79,7 @@ describe('NewsListComponent', () => {
   let component: NewsListComponent;
   let fixture: ComponentFixture<NewsListComponent>;
   let newsService: NewsService;
+  let initPredictorSpy: jasmine.Spy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -94,6 +107,8 @@ describe('NewsListComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NewsListComponent);
     component = fixture.componentInstance;
+    initPredictorSpy = spyOn(component, 'initPredictor').and.returnValue(Promise.resolve(new MockPredictor()));
+    component.ngOnInit();
     component.query = 'found';
     newsService = TestBed.get(NewsService);
     fixture.detectChanges();
@@ -103,38 +118,48 @@ describe('NewsListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('#loadNext should short circuit if `loading` is true', () => {
+  it('#loadNext should short circuit if `loading` is true', async(() => {
     const getNewsSpy = spyOn(newsService, 'getNews');
     component.loading = true;
-    component.loadNext();
-    expect(getNewsSpy).toHaveBeenCalledTimes(0);
-  });
+    fixture.whenStable().then(() => {
+      component.loadNext();
+      expect(getNewsSpy).toHaveBeenCalledTimes(0);
+    });
+  }));
 
-  it('#loadNext should short circuit if `noMoreItems` is true', () => {
+  it('#loadNext should short circuit if `noMoreItems` is true', async(() => {
     const getNewsSpy = spyOn(newsService, 'getNews');
     component.noMoreItems = true;
-    component.loadNext();
-    expect(getNewsSpy).toHaveBeenCalledTimes(0);
-  });
+    fixture.whenStable().then(() => {
+      component.loadNext();
+      expect(getNewsSpy).toHaveBeenCalledTimes(0);
+    });
+  }));
 
-  it('#loadNext should short circuit if `news.length` >= 30', () => {
+  it('#loadNext should short circuit if `news.length` >= 30', async(() => {
     const getNewsSpy = spyOn(newsService, 'getNews');
     component.news = new Array(30);
-    component.loadNext();
-    expect(getNewsSpy).toHaveBeenCalledTimes(0);
-  });
+    fixture.whenStable().then(() => {
+      component.loadNext();
+      expect(getNewsSpy).toHaveBeenCalledTimes(0);
+    });
+  }));
 
 
-  it('#noMoreItems should be true if articles returned < `pageSize`', () => {
+  it('#noMoreItems should be true if articles returned < `pageSize`', async(() => {
     component.pageSize = 7;
-    component.loadNext();
-    expect(component.noMoreItems).toBe(true);
-  });
+    fixture.whenStable().then(() => {
+      component.loadNext();
+      expect(component.noMoreItems).toBe(true);
+    });
+  }));
 
   it('#infoMessage should have "danger" status if NewsResponse is error', () => {
     component.pageToLoadNext = 0;
-    component.loadNext();
-    expect(component.infoMessage.status).toBe('danger');
+    fixture.whenStable().then(() => {
+      component.loadNext();
+      expect(component.infoMessage.status).toBe('danger');
+    });
   });
 
 });

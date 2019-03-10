@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NewsService } from '../news-list/news.service';
 
 @Component({
   selector: 'app-overview',
@@ -12,7 +13,7 @@ export class OverviewComponent implements OnInit {
     needleValue: 50,
     centralLabel: '',
     name: 'Average Sentiment',
-    bottomLabel: '50% (Neutral)',
+    bottomLabel: '50%',
     options: {
       hasNeedle: true,
       needleColor: 'black',
@@ -24,9 +25,15 @@ export class OverviewComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  constructor(
+    private newsService: NewsService
+  ) {}
 
   ngOnInit() {
+    this.newsService.averageSentimentStream.subscribe((average) => {
+      this.gaugeConfig.needleValue = average * 100;
+      this.gaugeConfig.bottomLabel = `${(average * 100).toFixed(2)}%`;
+    });
   }
 
 }
