@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { NewsItem } from './news-item/news-item.model';
+import { NewsService } from './news.service';
+import { InfoMessage } from './info-message.model';
 
 @Component({
   selector: 'app-news-list',
@@ -7,43 +9,51 @@ import { NewsItem } from './news-item/news-item.model';
   styleUrls: ['./news-list.component.scss']
 })
 export class NewsListComponent implements OnInit {
-  news: NewsItem[] = [
-    {
-      headline: 'This is a news headline.',
-      summary: 'This is a short summary of the content.',
-      datePublished: '2019-02-23',
-      author: 'Billy Bob',
-      sentiment: 0.54
-    } as NewsItem,
-    {
-      headline: 'The Samsung Galaxy S10 has a cryptocurrency wallet built in.',
-      summary: `
-Samsung is the first major smartphone maker to include a cryptocurrency wallet in its latest flagship Galaxy
-S10 phones. The wallet lets users store bitcoin, Ethereum, and a beauty-related cryptocurrency called Cosmo Coin.
-It’s a cold storage wallet, meaning
-      `,
-      datePublished: '2019-02-23',
-      author: 'Billy Bob',
-      sentiment: 0.68
-    } as NewsItem,
-    {
-      headline: 'This is a news headline.',
-      summary: 'This is a short summary of the content.',
-      datePublished: '2019-02-23',
-      author: 'Billy Bob',
-      sentiment: 0.2
-    } as NewsItem
-  ];
-  placeholders = [1];
-  query = 'bitcoin';
+  @Input() query = 'bitcoin';
+  infoMessage: InfoMessage;
+  news: NewsItem[] = [];
+  noMoreItems = false;
+  pageToLoadNext = 1;
+  placeholders = [];
+  loading = false;
+  pageSize = 5;
 
-  constructor() { }
+  constructor(
+    private newsService: NewsService
+  ) { }
 
   ngOnInit() {
+    this.loadNext();
   }
 
   loadNext() {
-
+    if (this.loading || this.noMoreItems || this.news.length >= 30) {
+      return;
+    }
+    this.loading = true;
+    this.placeholders = new Array(this.pageSize);
+    this.newsService
+      .getNews(this.query, this.pageSize, this.pageToLoadNext)
+      .subscribe((response) => {
+        switch (response.status) {
+          case 'ok':
+            this.placeholders = [];
+            this.loading = false;
+            this.news = this.news.concat(response.articles);
+            if (response.articles.length < this.pageSize) {
+              this.infoMessage = {status: 'info', message: 'No more items!'};
+              this.noMoreItems = true;
+              return;
+            }
+            this.pageToLoadNext++;
+            return;
+          case 'error':
+            this.placeholders = [];
+            this.infoMessage = {status: 'danger', message: response.message};
+            console.log(response.message);
+            return;
+        }
+      });
   }
 
 }

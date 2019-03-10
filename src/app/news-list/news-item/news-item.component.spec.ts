@@ -3,29 +3,32 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NewsItemComponent } from './news-item.component';
 import { NewsItem } from './news-item.model';
 
-const mockPositiveNews: NewsItem = {
-  headline: 'Cat is saved from tree!',
-  summary: 'Some courageous firemen saved a feral cat from an oak tree on Saturday.',
+const mockPositiveNews = {
+  title: 'Cat is saved from tree!',
+  description: 'Some courageous firemen saved a feral cat from an oak tree on Saturday.',
   sentiment: 0.7,
   author: 'John Writer',
-  datePublished: '2019-02-12'
-};
+  publishedAt: '2019-02-12',
+  url: 'https://google.com'
+} as NewsItem;
 
 const mockNeutralNews: NewsItem = {
-  headline: 'Cat is not dog.',
-  summary: 'Scientists discovered that cat is not dog. That is all.',
+  title: 'Cat is not dog.',
+  description: 'Scientists discovered that cat is not dog. That is all.',
   sentiment: 0.47,
   author: 'John Writer',
-  datePublished: '2019-02-12'
-};
+  publishedAt: '2019-02-12',
+  url: 'https://google.com'
+} as NewsItem;
 
 const mockNegativeNews: NewsItem = {
-  headline: 'Kid finds lamp but no genie. Only hotsauce.',
-  summary: 'An unfortunate event occurred on Sunday. A kid found a horrible lamp without a genie.',
+  title: 'Kid finds lamp but no genie. Only hotsauce.',
+  description: 'An unfortunate event occurred on Sunday. A kid found a horrible lamp without a genie.',
   sentiment: 0.2,
   author: 'John Writer',
-  datePublished: '2019-02-12'
-};
+  publishedAt: '2019-02-12',
+  url: 'https://google.com'
+} as NewsItem;
 
 describe('NewsItemComponent', () => {
   let component: NewsItemComponent;
@@ -41,18 +44,18 @@ describe('NewsItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NewsItemComponent);
     component = fixture.componentInstance;
-    component.content = mockNeutralNews;
+    component.newsItem = mockNeutralNews;
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    component.content = mockNeutralNews;
+    component.newsItem = mockNeutralNews;
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should display negative sentiment if content.sentiment < 0.4', () => {
-    component.content = mockNegativeNews;
+    component.newsItem = mockNegativeNews;
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.positive')).toBeFalsy();
@@ -61,7 +64,7 @@ describe('NewsItemComponent', () => {
   });
 
   it('should display neutral sentiment if 0.4 <= content.sentiment < 0.6', () => {
-    component.content = mockNeutralNews;
+    component.newsItem = mockNeutralNews;
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.positive')).toBeFalsy();
@@ -70,7 +73,7 @@ describe('NewsItemComponent', () => {
   });
 
   it('should display positive sentiment if content.sentiment >= 0.6', () => {
-    component.content = mockPositiveNews;
+    component.newsItem = mockPositiveNews;
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
     expect(compiled.querySelector('.negative')).toBeFalsy();

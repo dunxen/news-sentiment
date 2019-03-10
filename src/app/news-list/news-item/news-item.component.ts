@@ -8,7 +8,7 @@ import { NewsItem } from './news-item.model';
 })
 export class NewsItemComponent implements OnInit {
 
-  @Input() content: NewsItem;
+  @Input() newsItem: NewsItem;
 
   constructor() { }
 
