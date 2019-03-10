@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NewsItem } from './news-item/news-item.model';
 import { NewsService } from './news.service';
 import { InfoMessage } from './info-message.model';
+import { setupSentimentPredictor } from '../sentiment/sentiment-predictor';
 
 @Component({
   selector: 'app-news-list',
@@ -9,25 +10,39 @@ import { InfoMessage } from './info-message.model';
   styleUrls: ['./news-list.component.scss']
 })
 export class NewsListComponent implements OnInit {
-  @Input() query = 'bitcoin';
+  @Input() query = 'Crypto';
   infoMessage: InfoMessage;
+  predictorLoading = true;
   news: NewsItem[] = [];
   noMoreItems = false;
   pageToLoadNext = 1;
   placeholders = [];
   loading = false;
   pageSize = 5;
+  initPredictor = setupSentimentPredictor;
 
   constructor(
     private newsService: NewsService
   ) { }
 
   ngOnInit() {
+    this.initialise();
+  }
+
+  async initialise() {
+    const predictor = await this.initPredictor();
+    this.newsService.predictor = predictor;
+    this.predictorLoading = false;
     this.loadNext();
   }
 
   loadNext() {
-    if (this.loading || this.noMoreItems || this.news.length >= 30) {
+    if (
+      this.predictorLoading ||
+      this.loading ||
+      this.noMoreItems ||
+      this.news.length >= 30
+    ) {
       return;
     }
     this.loading = true;

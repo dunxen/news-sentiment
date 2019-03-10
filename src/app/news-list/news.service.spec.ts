@@ -7,7 +7,13 @@ import {
 } from '@angular/common/http/testing';
 import { NewsItem } from './news-item/news-item.model';
 import { NewsResponse } from './news-response.model';
-import { HttpErrorResponse } from '@angular/common/http';
+import * as sentiment from '../sentiment/sentiment-predictor';
+
+class MockPredictor {
+  predict(text: string): number {
+    return 0.5;
+  }
+}
 
 describe('NewsService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -36,6 +42,8 @@ describe('NewsService', () => {
         const query = 'candle';
         const pageSize = 5;
         const page = 1;
+
+        newsService.predictor = (new MockPredictor()) as sentiment.SentimentPredictor;
 
         newsService.getNews(query, pageSize, page).subscribe((response) => {
           switch (response.status) {
@@ -97,7 +105,6 @@ describe('NewsService', () => {
         const page = 1;
 
         newsService.getNews(query, pageSize, page).subscribe((response) => {
-          console.log(response);
           switch (response.status) {
             case 'error':
               expect(response.message = 'There was some kind of network failure.');
@@ -115,7 +122,6 @@ describe('NewsService', () => {
         const mockErrorEvent = new ErrorEvent('HttpErrorResponse', {
           error: mockHttpErrorResponse
         });
-        console.log(mockErrorEvent.error);
         mockRequest.error(mockErrorEvent);
         httpMock.verify();
       })

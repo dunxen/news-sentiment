@@ -86,6 +86,7 @@
             "styles": [
               "src/styles.scss"
             ],
+            "codeCoverageExclude": ["src/app/sentiment/*"],
             "scripts": [],
             "assets": [
               "src/favicon.ico",
