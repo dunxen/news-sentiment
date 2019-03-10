@@ -3,13 +3,17 @@
     <nb-card-body>
       <nb-list
       nbInfiniteList
-      [threshold]="500"
+      listenWindowScroll
+      [threshold]="20"
       (bottomThreshold)="loadNext()">
         <nb-list-item *ngFor="let newsItem of news; let i">
-          <app-news-item [content]="newsItem"></app-news-item>
+          <app-news-item [newsItem]="newsItem"></app-news-item>
         </nb-list-item>
         <nb-list-item *ngFor="let _ of placeholders">
           <app-news-item-placeholder></app-news-item-placeholder>
+        </nb-list-item>
+        <nb-list-item *ngIf="infoMessage">
+          <nb-alert status="{{infoMessage.status}}">{{infoMessage.message}}</nb-alert>
         </nb-list-item>
       </nb-list>
     </nb-card-body>
