@@ -25,7 +25,8 @@ describe('NewsService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#getNews should load the next news items if available',
+  it(
+    '#getNews should load the next news items if available',
     inject(
       [HttpTestingController, NewsService],
       (
@@ -33,7 +34,7 @@ describe('NewsService', () => {
         newsService: NewsService
       ) => {
         const mockArticles = [
-          {author: 'Bob', description: 'Candles'} as NewsItem
+          { author: 'Bob', description: 'Candles' } as NewsItem
         ];
         const mockNewsResponse: NewsResponse = {
           status: 'ok',
@@ -62,7 +63,8 @@ describe('NewsService', () => {
     )
   );
 
-  it('#getNews should return NewsReponse with "error" status if API responds with error',
+  it(
+    '#getNews should return NewsReponse with "error" status if API responds with error',
     inject(
       [HttpTestingController, NewsService],
       (
@@ -93,7 +95,8 @@ describe('NewsService', () => {
       })
   );
 
-  it('#getNews should return NewsReponse with "error" status on network failure.',
+  it(
+    '#getNews should return NewsReponse with "error" status on network failure.',
     inject(
       [HttpTestingController, NewsService],
       (

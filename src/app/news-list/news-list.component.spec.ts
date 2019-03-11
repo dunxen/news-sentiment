@@ -71,7 +71,7 @@ class MockNewsService {
       } as NewsResponse);
     }
 
-    return of({status: 'ok', articles: []} as NewsResponse);
+    return of({ status: 'ok', articles: [] } as NewsResponse);
   }
 }
 
@@ -87,7 +87,7 @@ describe('NewsListComponent', () => {
         NewsListComponent,
         NewsItemComponent,
         NewsItemPlaceholderComponent
-       ],
+      ],
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
@@ -139,6 +139,7 @@ describe('NewsListComponent', () => {
 
   it('#loadNext should short circuit if `news.length` >= 30', async(() => {
     const getNewsSpy = spyOn(newsService, 'getNews');
+    // tslint:disable-next-line: prefer-array-literal
     component.news = new Array(30);
     fixture.whenStable().then(() => {
       component.loadNext();

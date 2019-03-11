@@ -46,6 +46,7 @@ export class NewsListComponent implements OnInit {
       return;
     }
     this.loading = true;
+    // tslint:disable-next-line: prefer-array-literal
     this.placeholders = new Array(this.pageSize);
     this.newsService
       .getNews(this.query, this.pageSize, this.pageToLoadNext)
@@ -56,15 +57,15 @@ export class NewsListComponent implements OnInit {
             this.loading = false;
             this.news = this.news.concat(response.articles);
             if (response.articles.length < this.pageSize) {
-              this.infoMessage = {status: 'info', message: 'No more items!'};
+              this.infoMessage = { status: 'info', message: 'No more items!' };
               this.noMoreItems = true;
               return;
             }
-            this.pageToLoadNext++;
+            this.pageToLoadNext += 1;
             return;
           case 'error':
             this.placeholders = [];
-            this.infoMessage = {status: 'danger', message: response.message};
+            this.infoMessage = { status: 'danger', message: response.message };
             console.log(response.message);
             return;
         }
