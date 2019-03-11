@@ -10,7 +10,7 @@ import { setupSentimentPredictor } from '../sentiment/sentiment-predictor';
   styleUrls: ['./news-list.component.scss']
 })
 export class NewsListComponent implements OnInit {
-  @Input() query = 'Crypto';
+  @Input() query = 'Banks';
   infoMessage: InfoMessage;
   predictorLoading = true;
   news: NewsItem[] = [];

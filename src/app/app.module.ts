@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbListModule, NbAlertModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbListModule, NbAlertModule, NbSpinnerModule } from '@nebular/theme';
 import { AppRoutingModule } from './app-routing.module';
 import { OverviewComponent } from './overview/overview.component';
 import { NewsListComponent } from './news-list/news-list.component';
@@ -28,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
     NbCardModule,
     NbListModule,
     NbAlertModule,
+    NbSpinnerModule,
     AppRoutingModule,
     GaugeChartModule,
     HttpClientModule

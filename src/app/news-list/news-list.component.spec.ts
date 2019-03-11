@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NewsListComponent } from './news-list.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbCardModule, NbListModule, NbAlertModule } from '@nebular/theme';
+import { NbThemeModule, NbCardModule, NbListModule, NbAlertModule, NbSpinnerModule } from '@nebular/theme';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NewsItemComponent } from './news-item/news-item.component';
 import { NewsItemPlaceholderComponent } from './news-item-placeholder/news-item-placeholder.component';
@@ -95,6 +95,7 @@ describe('NewsListComponent', () => {
         NbCardModule,
         NbListModule,
         NbAlertModule,
+        NbSpinnerModule,
         RouterTestingModule.withRoutes([])
       ],
       providers: [
