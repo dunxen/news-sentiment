@@ -8,7 +8,7 @@ Newsently is a demo application that queries and displays news articles by keywo
 
 ## 2️⃣ Tests and Linting
 
-Linting and unit tests and are on TravisCI and need to be satisfied before changes are merged into the protected `master` branch. Since this app is very small, and no direct user interaction is present other than a few links, the end-to-end testing has been omitted.
+Linting and unit tests are run on TravisCI and need to be satisfied before changes are merged into the protected `master` branch. Since this app is very small, and no direct user interaction is present other than a few links, the end-to-end testing has been omitted.
 
 ## 3️⃣ API Limits
 
