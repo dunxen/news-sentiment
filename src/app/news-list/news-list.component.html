@@ -1,4 +1,7 @@
-<nb-card>
+<nb-card
+  [nbSpinner]="predictorLoading"
+  nbSpinnerStatus="info"
+  nbSpinnerSize="xxlarge">
   <nb-card-header><h2>News on <span class="query-term">{{query}}</span></h2></nb-card-header>
     <nb-card-body>
       <nb-list
@@ -9,7 +12,11 @@
         <nb-list-item *ngFor="let newsItem of news; let i">
           <app-news-item [newsItem]="newsItem"></app-news-item>
         </nb-list-item>
-        <nb-list-item *ngFor="let _ of placeholders">
+        <nb-list-item
+            [nbSpinner]="true"
+            nbSpinnerStatus="info"
+            nbSpinnerSize="xlarge"
+            *ngFor="let _ of placeholders">
           <app-news-item-placeholder></app-news-item-placeholder>
         </nb-list-item>
         <nb-list-item *ngIf="infoMessage">

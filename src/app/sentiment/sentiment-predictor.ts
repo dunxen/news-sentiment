@@ -2,7 +2,7 @@
 
 import * as tf from '@tensorflow/tfjs';
 import * as loader from './loader';
-import {OOV_INDEX, padSequences} from './sequence-utils';
+import { OOV_INDEX, padSequences } from './sequence-utils';
 
 interface Urls {
   metadata: string;
@@ -46,7 +46,7 @@ export class SentimentPredictor {
     const inputText =
         text.trim().toLowerCase().replace(/(\.|\,|\!)/g, '').split(' ');
     // Convert the words to a sequence of word indices.
-    const sequence = inputText.map(word => {
+    const sequence = inputText.map((word) => {
       let wordIndex = this.wordIndex[word] + this.indexFrom;
       if (wordIndex > this.vocabularySize) {
         wordIndex = OOV_INDEX;

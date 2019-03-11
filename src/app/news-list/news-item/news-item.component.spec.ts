@@ -36,7 +36,7 @@ describe('NewsItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewsItemComponent ]
+      declarations: [NewsItemComponent]
     })
     .compileComponents();
   }));

@@ -3,7 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { NewsResponse } from './news-response.model';
 import { Observable, of, Subject } from 'rxjs';
-import { SentimentPredictor, setupSentimentPredictor } from '../sentiment/sentiment-predictor';
+import { SentimentPredictor } from '../sentiment/sentiment-predictor';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { SentimentPredictor, setupSentimentPredictor } from '../sentiment/sentim
 export class NewsService {
 
   apiKey = '0d40171008e048cea104e08367e5e3ce';
-  baseUrl = `https://newsapi.org/v2/everything?apiKey=${this.apiKey}`;
+  baseUrl = `https://newsapi.org/v2/everything?sortBy=popularity&apiKey=${this.apiKey}`;
   predictor: SentimentPredictor;
   totalSentiment = 0;
   totalNewsItems = 0;
@@ -28,6 +29,7 @@ export class NewsService {
         if (response.status === 'ok') {
           response.articles = response.articles.map((article) => {
             article.sentiment = this.predictor.predict(article.description);
+            article.publishedAt = moment(article.publishedAt).format('DD MMM YYYY');
             this.totalSentiment += article.sentiment;
             return article;
           });

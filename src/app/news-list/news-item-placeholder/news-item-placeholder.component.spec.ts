@@ -8,7 +8,7 @@ describe('NewsItemPlaceholderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewsItemPlaceholderComponent ]
+      declarations: [NewsItemPlaceholderComponent]
     })
     .compileComponents();
   }));

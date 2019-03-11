@@ -20,7 +20,7 @@ describe('OverviewComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OverviewComponent ],
+      declarations: [OverviewComponent],
       imports: [
         BrowserModule,
         BrowserAnimationsModule,
