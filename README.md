@@ -16,5 +16,7 @@ The NewsAPI provides a free tier with only 1000 requests a day. I've done a few 
 
 * Articles are loaded in groups of five, with scrolling to the bottom of the page initiating the next paginated load.
 * Total article limit is 30.
+* Articles are sorted by popularity.
+* This example uses the keyword `Banks`.
 
 View the demo at https://duncandean.github.com/news-sentiment.
